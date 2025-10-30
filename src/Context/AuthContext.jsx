@@ -51,8 +51,8 @@ const AuthContextProvider = ({ children }) => {
         value = {{
             isLogged,
             user,
-            onLogout,
-            onLogin
+            onLogin,
+            onLogout
         }}
         >
         {children}
