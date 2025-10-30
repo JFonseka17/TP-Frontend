@@ -39,7 +39,7 @@ export async function login (email, password){
             email, 
             password
         } 
-    
+        
         const response_http = await fetch(
                 ENVIRONMENT.URL_API + '/api/auth/login',
             {
@@ -52,9 +52,8 @@ export async function login (email, password){
                 body: JSON.stringify(body)
             }
         )
-        
         const response = await response_http.json()
-    
+
         return response
 
     }

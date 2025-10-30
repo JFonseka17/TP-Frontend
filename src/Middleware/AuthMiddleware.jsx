@@ -4,6 +4,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const AuthMiddleware = () => {
     const {isLogged} = useContext(AuthContext)
+    console.log(isLogged)
     if (isLogged){
         return <Outlet/>
     }
