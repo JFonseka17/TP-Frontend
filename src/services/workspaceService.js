@@ -1,6 +1,6 @@
 import ENVIRONMENT from "../config/environment.js";
 
-export async function   getWorspaces() {
+export async function   getWorkspaces() {
 
     const response_http = await fetch(
 

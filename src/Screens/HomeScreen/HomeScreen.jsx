@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
-import { getWorspaces } from "../../services/workspaceService.js";
+import { getWorkspaces } from "../../services/workspaceService.js";
 import { Link } from "react-router";
 
 
@@ -11,7 +11,7 @@ const HomeScreen = () => {
     useEffect (
         () => {
             sendRequest (
-                () => getWorspaces ()
+                () => getWorkspaces ()
             )
         }, 
         []
