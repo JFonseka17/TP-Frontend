@@ -1,4 +1,5 @@
 import ENVIRONMENT from "../config/environment.js";
+import { AUTH_TOKEN_KEY } from "../Context/AuthContext.jsx";
 
 export async function   getWorkspaces() {
 
@@ -8,7 +9,7 @@ export async function   getWorkspaces() {
         {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                'Authorization': `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`
             }
         }
     )

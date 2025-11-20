@@ -28,20 +28,18 @@ export async function register(username, email, password) {
         return response
     }
     catch (error) {
-        console.error('Error al registrar:', error)
         throw new Error ('Error interno del servidor')
     }
 }
 
-export async function login (email, password){
-    try{
+export async function login(email, password) {
+    try {
         const body = {
-            email, 
+            email,
             password
-        } 
-        
+        }
         const response_http = await fetch(
-                ENVIRONMENT.URL_API + '/api/auth/login',
+            ENVIRONMENT.URL_API + '/api/auth/login',
             {
                 method: 'POST',
                 headers: {
@@ -55,11 +53,8 @@ export async function login (email, password){
         const response = await response_http.json()
 
         return response
-
     }
-    
-    catch(error){
-        console.error('Error al registrar:', error)
+    catch (error) {
         throw new Error('Error interno del servidor')
     }
 }
