@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { decodeToken } from "react-jwt";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export const AUTH_TOKEN_KEY = 'auth_token'
 
