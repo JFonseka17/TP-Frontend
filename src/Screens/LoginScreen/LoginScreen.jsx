@@ -38,9 +38,8 @@ const LoginScreen = () => {
   useEffect(() => {
     if (response && response.ok) {
       onLogin(response.body?.auth_token || response.data?.auth_token);
-      navigate('/home');
     }
-  }, [response, onLogin, navigate]);
+  }, [response, onLogin]);
 
   const emailValue = form_state[LOGIN_FORM_FIELDS.EMAIL] || '';
   const passwordValue = form_state[LOGIN_FORM_FIELDS.PASSWORD] || '';

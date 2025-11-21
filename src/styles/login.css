@@ -152,7 +152,7 @@
     box-shadow: none;
     background: #ffffff;
     color: var(--text);
-    -webkit-appearance: none;
+    appearance: none;
     /* evita estilos nativos en iOS/Chrome */
 }
 
