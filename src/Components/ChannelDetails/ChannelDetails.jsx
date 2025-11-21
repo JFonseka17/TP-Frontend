@@ -36,13 +36,16 @@ const ChannelDetails = () => {
         )
     }
 
-    const messages = response?.data?.messages || response?.messages || []
+    // Usamos los mismos nombres que devuelve el backend
+    // (message_content, message_created_at, user_name, _id)
+    const messages = response?.data?.messages || []
 
     async function handleSendMessage(e) {
         e.preventDefault()
         const content = newMessage.trim()
         if (!content) return
         try {
+            // createMessage en services enviará message_content al backend
             await createMessage(workspace_id, channel_id, content)
             setNewMessage('')
             loadMessagesList()
@@ -52,12 +55,12 @@ const ChannelDetails = () => {
     }
 
     return (
-        <div>
+        <div className="channel-details">
             <header>
                 <h4>Canal: {channel_id}</h4>
             </header>
 
-            <section>
+            <section className="messages-area">
                 {loading && <div>Cargando mensajes...</div>}
                 {error && <div>Error al obtener mensajes</div>}
 
@@ -66,12 +69,12 @@ const ChannelDetails = () => {
                         {messages.map(m => (
                             <li key={m._id}>
                                 <div>
-                                    <strong>{m.name || m.member?.name || m.author}</strong>
+                                    <strong>{m.user_name}</strong>
                                     <span>
-                                        {m.createdAt ? new Date(m.createdAt).toLocaleString() : ''}
+                                        {m.message_created_at ? new Date(m.message_created_at).toLocaleString() : ''}
                                     </span>
                                 </div>
-                                <div>{m.content}</div>
+                                <div>{m.message_content}</div>
                             </li>
                         ))}
                         <div ref={messagesEndRef} />
@@ -79,7 +82,7 @@ const ChannelDetails = () => {
                 )}
             </section>
 
-            <footer>
+            <footer className="message-composer">
                 <form onSubmit={handleSendMessage}>
                     <textarea
                         rows={2}

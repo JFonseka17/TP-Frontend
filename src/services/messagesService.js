@@ -16,13 +16,16 @@ export async function getMessagesByChannelId(workspace_id, channel_id) {
     if (!response.ok) {
         throw new Error(response.message || "Error al obtener los mensajes");
     }
+    // devolvemos la respuesta tal cual (campos del backend)
     return response;
 }
 
 // POST /api/workspace/:workspace_id/channels/:channel_id/messages
+// Envío con el mismo campo que usa el backend: message_content
 export async function createMessage(workspace_id, channel_id, content) {
     const url = `${ENVIRONMENT.URL_API}/api/workspace/${workspace_id}/channels/${channel_id}/messages`;
-    const body = { content };
+    const body = { message_content: content };
+
     const response_http = await fetch(url, {
         method: "POST",
         headers: {

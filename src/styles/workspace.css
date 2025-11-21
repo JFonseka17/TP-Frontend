@@ -1,0 +1,153 @@
+/* Layout del workspace: sidebar + panel */
+.workspace-container {
+    display: flex;
+    height: 100vh;
+    gap: 0;
+    align-items: stretch;
+}
+
+/* Sidebar */
+.channel-sidebar {
+    width: 280px;
+    min-width: 220px;
+    max-width: 320px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: auto;
+}
+
+/* Sidebar header */
+.channel-sidebar header h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+}
+
+/* Channel list */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.channel-list a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: var(--text);
+}
+
+.channel-list a:hover {
+    background: rgba(47, 128, 237, 0.08);
+}
+
+.channel-list a.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Main panel (mensajes) */
+.channel-panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--panel-bg);
+    overflow: hidden;
+}
+
+/* Header del canal */
+.channel-panel>header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.00));
+}
+
+.channel-panel>header h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Area de mensajes */
+.messages-area {
+    padding: 14px 18px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+/* Lista de mensajes */
+.message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message-item {
+    background: transparent;
+    border-radius: 6px;
+    padding: 6px 4px;
+}
+
+.message-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.message-content {
+    font-size: 14px;
+    color: var(--text);
+    white-space: pre-wrap;
+}
+
+/* Composer */
+.message-composer {
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    background: var(--panel-bg);
+}
+
+.message-composer form {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.message-composer textarea {
+    flex: 1 1 auto;
+    min-height: 44px;
+    max-height: 140px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.message-composer button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* Responsive: en pantallas pequeñas hide sidebar y apilar */
+@media (max-width: 800px) {
+    .channel-sidebar {
+        display: none;
+        position: absolute;
+        z-index: 40;
+    }
+
+    .workspace-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .channel-panel {
+        min-height: calc(100vh - 56px);
+    }
+}

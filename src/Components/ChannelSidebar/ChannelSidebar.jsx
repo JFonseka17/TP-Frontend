@@ -33,8 +33,10 @@ const ChannelSidebar = () => {
     console.log(response, error, loading)
 
     return (
-        <aside>
-            <h3>Canales:</h3>
+        <aside className="channel-sidebar">
+            <header>
+                <h3>Canales</h3>
+            </header>
             {
                 loading && <span>Cargando...</span>
             }
