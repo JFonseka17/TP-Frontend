@@ -60,8 +60,11 @@ const LoginScreen = () => {
               title="Slack"
             />
           </div>
-          <div>
-            <a className="top-link" href="/register">¿Es tu primera vez en Slack? Crear una cuenta</a>
+          <div className="top-right">
+            <div className="top-question">¿Es tu primera vez en slack?</div>
+            <div className="top-action">
+              <a className="top-link" href="/register">Crea una cuenta</a>
+            </div>
           </div>
         </div>
 

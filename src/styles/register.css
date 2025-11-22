@@ -1,0 +1,268 @@
+:root {
+    --bg: #ffffff;
+    --muted: #6b7280;
+    --primary: #4a154b;
+    --input-border: #d6d6d6;
+    --card-max-width: 100%;
+    --text: #0f1724;
+    --shadow: 0 18px 40px rgba(2, 6, 23, 0.06);
+}
+
+/* Página centrada (coincide visualmente con login) */
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: var(--bg);
+    padding: 48px 24px;
+    box-sizing: border-box;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Wrapper centrado */
+.register-wrapper {
+    width: 100%;
+    max-width: var(--card-max-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Cabecera / logo
+.register-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.register-top .logo img {
+    height: 34px;
+    width: auto;
+}
+
+.register-top .small-link {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+} */
+
+/* Header usando flex para mantener consistencia con login.css */
+.register-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* La columna izquierda ocupa todo el espacio disponible para empujar la logo al centro */
+.register-top .space-left {
+    flex: 1 1 0%;
+}
+
+/* Logo centrado en la parte central */
+.register-top .logo {
+    flex: 0 0 auto;
+    /* asegurar que el logo quede en el centro visual del header */
+    margin: 0 auto;
+}
+
+/* Columna derecha: en columna y alineada a la derecha */
+.top-right {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* alinea a la derecha */
+    text-align: right;
+    gap: 4px;
+}
+
+/* Estilos de texto en la columna derecha */
+.top-right .top-question {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.top-right .top-action .small-link,
+.top-right .top-action a {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Título grande */
+.register-heading {
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.register-heading h1 {
+    margin: 0;
+    font-size: 36px;
+    line-height: 1.03;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+
+.register-heading p {
+    margin: 8px 0 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Card / form column */
+.register-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+/* Formulario */
+.register-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+    background: transparent;
+}
+
+/* Campos */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-field input {
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--input-border);
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    box-shadow: none;
+    background: #ffffff;
+    color: var(--text);
+    appearance: none;
+}
+
+.form-field input::placeholder {
+    color: #9aa0a6;
+}
+
+.form-field input:focus {
+    border-color: rgba(18, 100, 163, 0.32);
+    box-shadow: 0 0 0 4px rgba(18, 100, 163, 0.07);
+}
+
+/* Password toggle (ojito) */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.password-wrapper input {
+    padding-right: 44px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 65%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #374151;
+}
+
+.password-toggle:hover,
+.password-toggle:focus {
+    background: rgba(0, 0, 0, 0.04);
+    outline: none;
+}
+
+.password-toggle svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Botón primario */
+.primary-action {
+    display: inline-block;
+    background: var(--slack-purple);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 6px 18px rgba(74, 21, 75, 0.12);
+}
+
+/* Mensajes y footer */
+.register-feedback {
+    font-size: 14px;
+}
+
+.register-feedback .error {
+    color: #b91c1c;
+}
+
+.register-feedback .success {
+    color: #1f9d55;
+}
+
+.register-footer {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+}
+
+.register-small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width:720px) {
+    .register-heading h1 {
+        font-size: 28px;
+    }
+
+    .register-wrapper {
+        padding: 0 8px;
+    }
+}
+
+@media (max-width:480px) {
+    .register-wrapper {
+        padding: 0 12px;
+    }
+}
