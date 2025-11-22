@@ -1,59 +1,13 @@
-/* import React, { useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
-import { getWorkspaces } from "../../services/workspaceService.js";
-import { Link } from "react-router";
-import '../../styles/home.css';
-
-
-const HomeScreen = () => {
-
-    const { sendRequest, response, loading, error} = useFetch ()
-
-    useEffect (
-        () => {
-            sendRequest (
-                () => getWorkspaces ()
-            )
-        }, 
-        []
-    )
-    console.log(response,loading, error)
-    return (
-        <div>
-            <h1>Lista de workspaces</h1>
-            {
-                loading
-                    ? <span>Cargando...</span>
-                    : <div>
-                        {
-                            response
-                            &&
-                            response.data.workspaces.map(
-                                (workspace) => {
-                                    return (
-                                        <div>
-                                            <h2>{workspace.workspace_name}</h2>
-                                            <Link to={'/workspace/' + workspace.workspace_id}>Abrir workspace</Link>
-                                        </div>
-                                    )
-                                }
-                            )
-                        }
-                    </div>
-            }
-        </div>
-    )
-}
-
-export default HomeScreen */
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
 import { getWorkspaces, createWorkspace } from "../../services/workspaceService.js";
 import { Link } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 import '../../styles/home.css';
 
 const HomeScreen = () => {
+    const { user } = useContext(AuthContext);
+
     const { sendRequest: fetchWorkspaces, response, loading, error } = useFetch();
     const { sendRequest: sendCreate, response: createResponse, loading: creating } = useFetch();
 
@@ -65,54 +19,45 @@ const HomeScreen = () => {
     }, []);
 
     useEffect(() => {
-        const list = response?.data?.workspaces || response?.body?.workspaces || [];
-        setWorkspaces(Array.isArray(list) ? list : []);
-        // justo después de setWorkspaces(...) en tu useEffect que escucha response
-console.log('RAW response from getWorkspaces:', response);
-console.log('Parsed workspaces array:', response?.data?.workspaces || response?.body?.workspaces || response);
-// si hay al menos un workspace, ver sus keys
-if (Array.isArray(workspaces) && workspaces.length > 0) {
-console.log('Keys of first workspace:', Object.keys(workspaces[0]));
-console.log('First workspace sample:', workspaces[0]);
-}
+        // Normalizar distintas formas de respuesta posibles
+        const list = response?.data?.workspaces || response?.workspaces || response || [];
+        const normalized = Array.isArray(list) ? list : [];
+        setWorkspaces(normalized);
     }, [response]);
 
     useEffect(() => {
-        // Si createResponse tiene contenido, re-fetch de la lista
         if (createResponse) {
             fetchWorkspaces(() => getWorkspaces());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [createResponse]);
 
-    function groupByOwner(list) {
-        const groups = {};
-        list.forEach((ws) => {
-            const owner = ws.owner_email || ws.user_email || ws.email || 'Sin correo';
-            if (!groups[owner]) groups[owner] = [];
-            groups[owner].push(ws);
-        });
-        return groups;
+    // Resolver owner/email usando la nueva propiedad que proviene del backend
+    function resolveOwnerEmailFromWorkspace(ws) {
+        // Usar exactamente el campo que ahora envía el backend
+        return ws.member_email || user?.email || 'Sin correo';
     }
 
-    const grouped = groupByOwner(workspaces);
+    function initialsFor(name = '') {
+        const parts = (name || '').trim().split(/\s+/);
+        if (parts.length === 0) return 'W';
+        if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+
+    // Agrupamos por ownerEmail ya resuelto
+    const grouped = workspaces.reduce((acc, ws) => {
+        const ownerEmail = resolveOwnerEmailFromWorkspace(ws);
+        if (!acc[ownerEmail]) acc[ownerEmail] = [];
+        acc[ownerEmail].push(ws);
+        return acc;
+    }, {});
 
     function handleCreateWorkspace() {
         const name = window.prompt("Nombre del nuevo espacio de trabajo:");
         if (!name || !name.trim()) return;
-
-        // Pedimos opcionalmente la URL de la imagen. Si no se ingresa queda string vacío.
         const url_image = window.prompt("URL de la imagen/icono (opcional). Dejar vacío si no aplica:", "");
-
-        // Llamamos al servicio con ambos parámetros
         sendCreate(() => createWorkspace(name.trim(), (url_image || "").trim()));
-    }
-
-    function initialsFor(name = '') {
-        const parts = name.trim().split(/\s+/);
-        if (parts.length === 0) return 'W';
-        if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
-        return (parts[0][0] + parts[1][0]).toUpperCase();
     }
 
     return (
@@ -126,7 +71,7 @@ console.log('First workspace sample:', workspaces[0]);
                             title="Slack"
                         />
                     </div>
-                    <div className="hero-confirm">Se confirmó como <strong>fonseka17.jf@gmail.com</strong>
+                    <div className="hero-confirm">Se confirmó como <strong>{user?.email || 'usuario'}</strong>
                     </div>
                 </div>
                 <div className="hero-inner">
@@ -204,17 +149,16 @@ console.log('First workspace sample:', workspaces[0]);
                             ) : (
                                 Object.entries(grouped).map(([ownerEmail, list]) => (
                                     <div className="workspace-group" key={ownerEmail}>
-                                        <h2>LISTOS PARA COMENZAR</h2>
                                         <div className="owner-email">{ownerEmail}</div>
                                         <div className="workspace-list">
                                             {list.map((workspace) => {
                                                 const members = workspace.members_count ?? (workspace.members ? workspace.members.length : 0);
                                                 return (
-                                                    <div className="workspace-card" key={workspace.workspace_id || workspace.id || workspace.workspace_name}>
+                                                    <div className="workspace-card" key={workspace.workspace_id || workspace.id || workspace.name || workspace.workspace_name}>
                                                         <div className="workspace-left">
-                                                            <div className="workspace-avatar">{initialsFor(workspace.workspace_name)}</div>
+                                                            <div className="workspace-avatar">{initialsFor(workspace.workspace_name || workspace.name)}</div>
                                                             <div className="workspace-info">
-                                                                <div className="workspace-name">{workspace.workspace_name}</div>
+                                                                <div className="workspace-name">{workspace.workspace_name || workspace.name}</div>
                                                                 <div className="workspace-meta">
                                                                     <span className="member-icon">👥</span>
                                                                     <span className="member-count">{members} miembros</span>
@@ -222,7 +166,7 @@ console.log('First workspace sample:', workspaces[0]);
                                                             </div>
                                                         </div>
                                                         <div className="workspace-action">
-                                                            <Link to={'/workspace/' + (workspace.workspace_id || workspace.id)} className="open-link" aria-label={`Abrir ${workspace.workspace_name}`}>
+                                                            <Link to={'/workspace/' + (workspace.workspace_id || workspace.id)} className="open-link" aria-label={`Abrir ${workspace.workspace_name || workspace.name}`}>
                                                                 ➜
                                                             </Link>
                                                         </div>
