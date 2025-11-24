@@ -24,7 +24,6 @@ export async function getMessagesByChannelId(workspace_id, channel_id) {
 // Envío con el mismo campo que usa el backend: message_content
 export async function createMessage(workspace_id, channel_id, content) {
     const url = `${ENVIRONMENT.URL_API}/api/workspace/${workspace_id}/channels/${channel_id}/messages`;
-    const body = { message_content: content };
 
     const response_http = await fetch(url, {
         method: "POST",
@@ -32,7 +31,7 @@ export async function createMessage(workspace_id, channel_id, content) {
             "Authorization": `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify({content})
     });
 
     const response = await response_http.json();

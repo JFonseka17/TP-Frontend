@@ -2,20 +2,24 @@
 
 .workspace-container {
     display: flex;
+    flex-direction: column;
     height: 100vh;
     gap: 0;
     align-items: stretch;
 }
 
-.channel-sidebar {
-    width: var(--sidebar-width);
-    min-width: 220px;
-    max-width: 320px;
-    background: var(--purple-700);
-    color: #fff;
-    border-right: 1px solid var(--border);
+.channel-search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
     padding: var(--space-3);
-    overflow-y: auto;
+    background: linear-gradient(to right, var(--purple-700), var(--purple-800));
+}
+
+.channel-main-container {
+    display: flex;
+    flex: 1 1 auto;
 }
 
 .channel-panel {
