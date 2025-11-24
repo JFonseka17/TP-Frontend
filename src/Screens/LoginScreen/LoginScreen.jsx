@@ -155,12 +155,13 @@ const LoginScreen = () => {
           </form>
         </div>
 
-        <div className="login-footer" aria-hidden>
+        
+      </div>
+      <div className="login-footer" aria-hidden>
           <a href="#">Privacidad y términos</a>
           <a href="#">Contactarnos</a>
           <a href="#">Cambiar región</a>
         </div>
-      </div>
     </div>
   );
 };

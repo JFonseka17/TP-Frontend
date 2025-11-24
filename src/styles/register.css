@@ -1,36 +1,25 @@
-:root {
-    --bg: #ffffff;
-    --muted: #6b7280;
-    --primary: #4a154b;
-    --input-border: #d6d6d6;
-    --card-max-width: 100%;
-    --text: #0f1724;
-    --shadow: 0 18px 40px rgba(2, 6, 23, 0.06);
-}
+@import './global.css';
 
-/* Página centrada (coincide visualmente con login) */
 .register-page {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    background: var(--bg);
-    padding: 48px 24px;
-    box-sizing: border-box;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-bg);
+    padding: clamp(12px, 3vw, 48px);
 }
 
-/* Wrapper centrado */
 .register-wrapper {
     width: 100%;
-    max-width: var(--card-max-width);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 24px;
+    justify-content: center;
+    padding: var(--space-3);
 }
 
-/* Cabecera / logo
 .register-top {
     width: 100%;
     display: flex;
@@ -47,9 +36,8 @@
     font-size: 14px;
     color: var(--muted);
     text-decoration: none;
-} */
+}
 
-/* Header usando flex para mantener consistencia con login.css */
 .register-top {
     width: 100%;
     display: flex;
@@ -57,86 +45,47 @@
     gap: 12px;
 }
 
-/* La columna izquierda ocupa todo el espacio disponible para empujar la logo al centro */
 .register-top .space-left {
     flex: 1 1 0%;
 }
 
-/* Logo centrado en la parte central */
 .register-top .logo {
     flex: 0 0 auto;
-    /* asegurar que el logo quede en el centro visual del header */
     margin: 0 auto;
 }
 
-/* Columna derecha: en columna y alineada a la derecha */
 .top-right {
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* alinea a la derecha */
     text-align: right;
-    gap: 4px;
 }
 
-/* Estilos de texto en la columna derecha */
 .top-right .top-question {
     font-size: 14px;
     color: var(--muted);
 }
 
-.top-right .top-action .small-link,
-.top-right .top-action a {
-    font-size: 14px;
-    color: var(--primary);
-    font-weight: 600;
+.top-right .top-action {
+    font-weight: 700;
+    color: var(--blue-100);
     text-decoration: none;
 }
 
-/* Título grande */
-.register-heading {
-    width: 100%;
-    text-align: center;
-    margin-top: 12px;
-}
-
 .register-heading h1 {
+    font-size: clamp(24px, 3.2vw, 36px);
     margin: 0;
-    font-size: 36px;
-    line-height: 1.03;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--text);
+    text-align: center;
 }
 
-.register-heading p {
-    margin: 8px 0 0 0;
-    color: var(--muted);
-    font-size: 14px;
-}
-
-/* Card / form column */
-.register-card {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 6px;
-}
-
-/* Formulario */
 .register-form {
-    width: 100%;
-    max-width: 400px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    align-items: stretch;
-    background: transparent;
 }
 
-/* Campos */
 .form-field {
     display: flex;
     flex-direction: column;
@@ -151,7 +100,7 @@
 .form-field input {
     padding: 14px 16px;
     border-radius: 10px;
-    border: 1px solid var(--input-border);
+    border: 1px solid black;
     font-size: 16px;
     outline: none;
     width: 100%;
@@ -170,7 +119,6 @@
     box-shadow: 0 0 0 4px rgba(18, 100, 163, 0.07);
 }
 
-/* Password toggle (ojito) */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -210,7 +158,6 @@
     display: block;
 }
 
-/* Botón primario */
 .primary-action {
     display: inline-block;
     background: var(--slack-purple);
@@ -225,7 +172,6 @@
     box-shadow: 0 6px 18px rgba(74, 21, 75, 0.12);
 }
 
-/* Mensajes y footer */
 .register-feedback {
     font-size: 14px;
 }
@@ -245,24 +191,15 @@
     margin-top: 14px;
 }
 
-.register-small {
-    font-size: 13px;
-    color: var(--muted);
-}
 
-/* Responsive */
-@media (max-width:720px) {
-    .register-heading h1 {
-        font-size: 28px;
-    }
-
-    .register-wrapper {
-        padding: 0 8px;
-    }
-}
-
-@media (max-width:480px) {
+@media (max-width: 720px) {
     .register-wrapper {
         padding: 0 12px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .register-heading h1 {
+        font-size: clamp(20px, 6vw, 28px);
     }
 }

@@ -1,15 +1,68 @@
-/* Reset y tipografías básicas */
 :root {
-    --bg: #f6f7fb;
-    --sidebar-bg: #ffffff;
-    --muted: #6b7280;
-    --primary: #2f80ed;
-    --text: #111827;
-    --panel-bg: #ffffff;
-    --border: #e6e9ef;
+    /* Palette (light -> dark) */
+    --color-bg: #ffffff;
+    --color-bg-2: #f4ede480;
+    --color-surface: #fbfbfd;
+    --muted-1: #f7eef6;
+    --muted-2: #f0e5f2;
+    --purple-100: #e5d0e7;
+    --purple-200: #d8b7db;
+    --purple-300: #c88db7;
+    --purple-400: #b16493;
+    --purple-500: #8f2f6f;
+    --purple-600: #6b1f52;
+    --purple-700: #4a123f;
+    --purple-800: #3b0f2f;
+    --blue-100: #1264A3;
+
+    --text-default: #222222;
+    --text-muted: #6f6f76;
+    --border: #e6e1ea;
+    --success: #17a673;
+    --danger: #e05151;
+    --card-bg: #ffffff;
+    --shadow-1: 0 1px 2px rgba(16, 16, 16, 0.04);
+    --shadow-2: 0 8px 24px rgba(16, 16, 16, 0.09);
+
+    /* Spacing scale */
+    --space-0: 4px;
+    --space-1: 8px;
+    --space-2: 12px;
+    --space-3: 16px;
+    --space-4: 20px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 40px;
+
+    /* Radii & sizes */
+    --radius-sm: 6px;
+    --radius: 8px;
+    --radius-lg: 12px;
+
+    /* Typography (fluid) */
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --font-size-base: clamp(13px, 0.9vw + 10px, 16px);
+    --font-size-sm: clamp(12px, 0.6vw + 10px, 14px);
+    --font-size-lg: clamp(16px, 1.2vw + 12px, 20px);
+    --heading-weight: 700;
+    --body-weight: 400;
+
+    /* Layout */
+    --sidebar-width: clamp(220px, 18vw, 320px);
+    --header-height: clamp(56px, 4.2vw, 72px);
+
+    /* Breakpoints (useful for media queries) */
+    --bp-xs: 320px;
+    --bp-sm: 480px;
+    --bp-md: 768px;
+    --bp-lg: 1000px;
+    --bp-xl: 1366px;
 }
 
-* {
+/* Reset + base */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -17,30 +70,135 @@ html,
 body,
 #root {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg);
-    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--text-default);
+    background: var(--color-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 14px;
     line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
 }
 
+/* Links and focus */
 a {
     color: inherit;
     text-decoration: none;
 }
 
-button {
+:focus {
+    outline: 3px solid rgba(99, 33, 99, 0.12);
+    outline-offset: 2px;
+}
+
+/* Buttons and inputs baseline */
+button,
+.button {
     font-family: inherit;
+    font-size: var(--font-size-base);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-default);
     cursor: pointer;
 }
 
+button.primary,
+.primary-action {
+    background: var(--purple-700);
+    color: #fff;
+    border: none;
+    box-shadow: var(--shadow-1);
+}
+
 input,
-textarea {
+textarea,
+select {
     font-family: inherit;
+    font-size: var(--font-size-base);
+    color: var(--text-default);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    background: #fff;
+}
+
+/* Cards & avatars */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-1);
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--muted-1);
+    color: var(--purple-700);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* Layout helpers */
+.hstack {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.vstack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-3);
+}
+
+/* App row & responsive helpers */
+.app-row {
+    display: flex;
+    height: 100vh;
+    min-height: 0;
+}
+
+.hidden-xs {
+    display: none;
+}
+
+/* Accessibility helpers */
+.sr-only {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+/* Media queries range: ensure behavior from 320px to 2000px */
+@media(min-width: 2000px) {
+    :root {
+        --font-size-base: 18px;
+    }
+}
+
+@media(max-width: 480px) {
+    :root {
+        --font-size-base: 13px;
+    }
 }

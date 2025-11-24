@@ -153,9 +153,10 @@ const RegisterScreen = () => {
                     </form>
                 </div>
 
-                <div className="register-footer">
+                
+            </div>
+            <div className="register-footer">
                     Al registrarte aceptas los términos y condiciones.
-                </div>
             </div>
         </div>
     )

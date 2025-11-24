@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import { Link } from 'react-router'
 
 const ChannelItem = ({ channel, workspace_id }) => {
@@ -8,6 +8,23 @@ const ChannelItem = ({ channel, workspace_id }) => {
                 #{channel.name}
             </Link>
         </div>
+    )
+}
+
+export default ChannelItem */
+
+import React from 'react'
+import { Link } from 'react-router'
+
+const ChannelItem = ({ channel, workspace_id, active = false }) => {
+    const to = `/workspace/${workspace_id}/${channel._id}`
+    return (
+        <li className="channel-item" aria-current={active ? 'page' : undefined}>
+            <Link to={to} className={`channel-link${active ? ' active' : ''}`}>
+                <span className="channel-hash">#</span>
+                <span className="channel-name">{channel.name}</span>
+            </Link>
+        </li>
     )
 }
 

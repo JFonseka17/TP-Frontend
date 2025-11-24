@@ -1,39 +1,27 @@
-:root {
-    --bg: #ffffff;
-    --muted: #6b7280;
-    --slack-purple: #4a154b;
-    --slack-purple-2: #611f6a;
-    --primary: #4a154b;
-    /* botón púrpura */
-    --input-border: #d6d6d6;
-    --card-max-width: 100%;
-    --text: #0f1724;
-    --shadow: 0 18px 40px rgba(2, 6, 23, 0.06);
-}
+@import './global.css';
 
-/* Page */
 .login-page {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    background: var(--bg);
-    padding: 48px 24px;
-    box-sizing: border-box;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-}
-
-/* Container similar to Slack: centered narrow column */
-.login-wrapper {
-    width: 100%;
-    max-width: var(--card-max-width);
-    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    justify-content: space-between;
+    background: var(--color-bg);
+    padding: clamp(16px, 4vw, 48px);
+    box-sizing: border-box;
 }
 
-/* Top: logo + create account link (right) */
+.login-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+}
+
 .login-top {
     width: 100%;
     display: flex;
@@ -43,7 +31,7 @@
 
 .login-top>div {
     flex: 1;
-    /* Cada div ocupa 1 parte igual */
+    
     display: flex;
 }
 
@@ -61,7 +49,7 @@
 
 .login-top>div:last-child {
     justify-content: flex-end;
-    /* Alinea el enlace a la derecha */
+    
 }
 
 .top-link {
@@ -71,28 +59,25 @@
     text-decoration: none;
 }
 
-/* Top-right: texto en columna y alineado a la derecha */
 .top-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
-    gap: 4px;
 }
 
 .top-right .top-question {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
 }
 
 .top-right .top-action .top-link {
-    font-size: 14px;
-    color: var(--primary);
-    font-weight: 600;
+    font-size: 13px;
+    color: var(--blue-100);
+    font-weight: 700;
     text-decoration: none;
 }
 
-/* Large heading area */
 .login-heading {
     max-width: 700px;
     text-align: center;
@@ -100,21 +85,19 @@
 }
 
 .login-heading h1 {
-    margin: 0;
-    font-size: 48px;
-    line-height: 46px;
+    font-size: clamp(28px, 4vw, 48px);
     font-weight: 700;
+    margin: 0;
+    line-height: 46px;
     letter-spacing: -0.75px;
-    color: var(--text);
 }
 
 .login-heading p {
     margin: 12px 0 0 0;
     color: var(--muted);
-    font-size: 16px;
+    font-size: 18px;
 }
 
-/* Card with the form */
 .login-card {
     width: 100%;
     background: transparent;
@@ -124,7 +107,6 @@
     margin-top: 6px;
 }
 
-/* Form column */
 .login-form {
     width: 100%;
     max-width: 400px;
@@ -135,29 +117,6 @@
     align-items: stretch;
 }
 
-/*Email input
-.input-control {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.input-control input[type="email"] {
-    padding: 14px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--input-border);
-    font-size: 16px;
-    outline: none;
-    width: 100%;
-    box-shadow: none;
-}
-
-.input-control input[type="email"]::placeholder {
-    color: #9aa0a6;
-}
- */
-
-/* Asegura que todos los inputs en .input-control (email y password) compartan el mismo estilo */
 .input-control {
     display: flex;
     flex-direction: column;
@@ -175,20 +134,17 @@
     background: #ffffff;
     color: var(--text);
     appearance: none;
-    /* evita estilos nativos en iOS/Chrome */
 }
 
 .input-control input::placeholder {
     color: #9aa0a6;
 }
 
-/* Enfoque idéntico para email y password */
 .input-control input:focus {
     border-color: rgba(18, 100, 163, 0.32);
     box-shadow: 0 0 0 4px rgba(18, 100, 163, 0.07);
 }
 
-/* ===== Password toggle (ojito) ===== */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -196,13 +152,10 @@
     gap: 6px;
 }
 
-/* Aseguramos espacio extra a la derecha del input para el botón */
 .password-wrapper input {
     padding-right: 44px;
-    /* deja lugar para el icono */
 }
 
-/* Botón del ojo */
 .password-toggle {
     position: absolute;
     right: 8px;
@@ -219,48 +172,35 @@
     color: #374151;
 }
 
-/* Hover / focus states para mejor accesibilidad */
 .password-toggle:hover,
 .password-toggle:focus {
     background: rgba(0, 0, 0, 0.04);
     outline: none;
 }
 
-/* Asegurar que el SVG del icono tenga tamaño y no se distorsione */
 .password-toggle svg {
     width: 18px;
     height: 18px;
     display: block;
 }
 
-/* Si el input está en focus, queremos que la sombra abarque también el área del botón */
 .password-wrapper input:focus {
     box-shadow: 0 0 0 4px rgba(18, 100, 163, 0.07);
     border-color: rgba(18, 100, 163, 0.32);
 }
 
-/* Primary purple button */
 .primary-action {
-    display: inline-block;
-    background: var(--slack-purple);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
     width: 100%;
-    box-shadow: 0 6px 18px rgba(74, 21, 75, 0.12);
+    padding: 12px 16px;
+    border-radius: 10px;
 }
 
-/* Separator line + caption */
 .sep {
     display: flex;
     align-items: center;
     gap: 12px;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 15px;
     margin: 6px 0 0 0;
 }
 
@@ -272,7 +212,6 @@
     background: #e6e6e6;
 }
 
-/* Social buttons row */
 .social-row {
     display: flex;
     gap: 12px;
@@ -299,21 +238,19 @@
     width: 18px;
 }
 
-/* Helper link under */
 .helper {
     margin-top: 10px;
     text-align: center;
-    font-size: 14px;
+    font-size: 18px;
     color: var(--muted);
 }
 
 .helper a {
-    color: var(--primary);
+    color: var(--blue-100);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
 }
 
-/* Footer small links at bottom of page */
 .login-footer {
     width: 100%;
     max-width: 400px;
@@ -325,25 +262,12 @@
     color: var(--muted);
 }
 
-/* Responsive */
 @media (max-width: 720px) {
-    .login-heading h1 {
-        font-size: 32px;
-    }
-
     .login-wrapper {
-        padding: 0 8px;
+        padding: 0 12px;
     }
 
-    .login-footer {
-        display: block;
-        text-align: center;
-        gap: 6px;
-        row-gap: 6px;
-    }
-
-    .login-footer a {
-        display: inline-block;
-        margin: 6px 4px;
+    .login-heading h1 {
+        font-size: clamp(22px, 6vw, 32px);
     }
 }
