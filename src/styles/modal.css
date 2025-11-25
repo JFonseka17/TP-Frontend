@@ -1,0 +1,112 @@
+/* Modal básico + estilos para el selector de rol (checkbox) */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.32);
+    z-index: 9999;
+    padding: 12px;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 12px 40px rgba(16, 16, 16, 0.18);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-label {
+    font-size: 13px;
+    color: #222;
+    font-weight: 600;
+}
+
+.role-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.role-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.role-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--purple-700);
+    /* moderno */
+}
+
+.role-label-text {
+    font-size: 14px;
+    color: #111;
+}
+
+.role-help {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.form-error {
+    color: #b91c1c;
+    font-size: 0.95rem;
+}
+
+/* botones */
+.button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+}
+
+.button.primary {
+    background: var(--purple-700);
+    color: #fff;
+    border: none;
+}
