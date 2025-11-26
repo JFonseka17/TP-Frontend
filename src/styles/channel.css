@@ -161,6 +161,7 @@
 }
 
 .sidebar-footer button{
+    font-weight: var(--heading-weight);
     width: 90%;
     background-color: var(--card-bg);
     border: none;
@@ -252,6 +253,7 @@
 
 .channel-name {
     font-size: var(--font-size-sm);
+    font-weight: var(--heading-weight);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -279,7 +281,6 @@
     flex: 1 1 auto;
     width: 100%;
     min-height: 0; 
-
 }
 
 .channel-header {
@@ -445,16 +446,16 @@
     .channel-sidebar-icons {
         display: flex;
         flex-direction: row;
-        width: 100%;
-        gap: var(--space-1);
-        justify-content: flex-start;
+        padding-right: var(--space-3);
+        width: 80%;
+        justify-content: space-between
     }
 
     .channel-sidebar-footer {
         display: flex;
         flex-direction: row;
         padding: 0;
-        width: auto;
+        width: 20%;
     }
 
     .channel-sidebar-footer svg {

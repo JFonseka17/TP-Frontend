@@ -199,7 +199,7 @@ const ChannelSidebar = () => {
                         <svg viewBox="0 0 20 20">
                             <path fill="currentColor" fillRule="evenodd" d="M7.675 6.468a4.75 4.75 0 1 1 8.807 3.441.75.75 0 0 0-.067.489l.379 1.896-1.896-.38a.75.75 0 0 0-.489.068 5 5 0 0 1-.648.273.75.75 0 1 0 .478 1.422q.314-.105.611-.242l2.753.55a.75.75 0 0 0 .882-.882l-.55-2.753A6.25 6.25 0 1 0 6.23 6.064a.75.75 0 1 0 1.445.404M6.5 8.5a5 5 0 0 0-4.57 7.03l-.415 2.073a.75.75 0 0 0 .882.882l2.074-.414A5 5 0 1 0 6.5 8.5m-3.5 5a3.5 3.5 0 1 1 1.91 3.119.75.75 0 0 0-.49-.068l-1.214.243.243-1.215a.75.75 0 0 0-.068-.488A3.5 3.5 0 0 1 3 13.5" clipRule="evenodd"></path>
                         </svg>
-                        <span>Mensajes directos</span>
+                        <span>Mensajes</span>
                     </button>
                     <button className='sidebar-icon'>
                         <svg viewBox="0 0 20 20">
@@ -228,6 +228,7 @@ const ChannelSidebar = () => {
                                 <path fillRule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
                                 <path fillRule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
                             </svg>
+                            <span>Logout</span>
                         </button>
                     </div>
                     <div className="sidebar-profile">
@@ -236,6 +237,7 @@ const ChannelSidebar = () => {
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                 <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
                             </svg>
+                            <span>Profile</span>
                         </button>
                     </div>
                 </div>
@@ -264,7 +266,6 @@ const ChannelSidebar = () => {
                 <div className="sidebar-footer">
                     <span>Slack funciona mejor cuando lo usas en conjunto.</span>
                     <button
-                        className="fab-add"
                         aria-label="Invitar miembro"
                         onClick={() => setIsInviteOpen(true)}
                     >
