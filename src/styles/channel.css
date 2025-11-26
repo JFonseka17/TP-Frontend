@@ -122,6 +122,29 @@
     font-size: 11px;
 }
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.header-content button {
+        border: none;
+        padding: 8px 12px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer
+    }
+
+.header-content svg {
+    height: 36px;
+    width: 36px;
+    color: rgba(255, 255, 255, 0.85);
+    fill: var(--purple-250)
+}
+
 .sidebar-footer {
     display: flex;
     flex-direction: column;
