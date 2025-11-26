@@ -1,6 +1,6 @@
 @import './global.css';
 
-.channels-page {
+/* .channels-page {
     display: flex;
     height: 100vh;
     gap: var(--space-3);
@@ -8,7 +8,7 @@
     background: linear-gradient(180deg, var(--color-bg), var(--color-surface));
     min-width: 0;
     padding: 0;
-}
+} */
 
 .channel-search input {
     padding: 5px 5px 5px 12px;
@@ -254,6 +254,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    width: 100%;
     min-height: 0;
     height: 100%;  
 }
@@ -280,6 +281,7 @@
     flex-direction: column;
     justify-content: flex-start;
     flex: 1 1 auto;
+    width: 100%;
     min-height: 0;
     overflow: auto;
 }
@@ -426,7 +428,5 @@
 @media (min-width: 1800px) {
     .channel-scroll {
         padding: 48px 80px;
-        max-width: 1400px;
-        margin: 0 auto;
     }
 }
