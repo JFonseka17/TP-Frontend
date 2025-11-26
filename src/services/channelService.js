@@ -1,4 +1,4 @@
-import ENVIRONMENT from "../config/environment.js"
+/* import ENVIRONMENT from "../config/environment.js"
 import {AUTH_TOKEN_KEY} from "../Context/AuthContext.jsx"
 
 //GET /api/workspaces/:workspace_id/channels
@@ -52,4 +52,77 @@ async function createChannel(workspace_id, channel_name) {
     return response
 }
 
-export { getChannelList, createChannel }
+export { getChannelList, createChannel } */
+
+import ENVIRONMENT from "../config/environment.js"
+import {AUTH_TOKEN_KEY} from "../Context/AuthContext.jsx"
+
+//GET /api/workspace/:workspace_id/channels
+async function getChannelList(workspace_id) {
+
+    console.log(localStorage.getItem(AUTH_TOKEN_KEY))
+    const response_http = await fetch(
+        ENVIRONMENT.URL_API + `/api/workspace/${workspace_id}/channels`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
+            },
+        }
+    )
+    const response = await response_http.json()
+    if (!response.ok) {
+        throw new Error("Error at get channels");
+    }
+    return response
+}
+
+// GET /api/workspace/:workspace_id/channels/:channel_id
+// Si el backend no tiene esa ruta, esta función lanzará y el caller puede hacer fallback.
+async function getChannelById(workspace_id, channel_id) {
+    const response_http = await fetch(
+        ENVIRONMENT.URL_API + `/api/workspace/${workspace_id}/channels/${channel_id}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
+            },
+        }
+    )
+    const response = await response_http.json()
+    if (!response.ok) {
+        // lanzamos para que el caller pueda decidir fallback
+        throw new Error("Error at get channel by id");
+    }
+    return response
+}
+
+
+//Crea un nuevo canal
+//Debes pasar por body el name
+//body example: { name: "general" }
+async function createChannel(workspace_id, channel_name) {
+    const body = {
+        name: channel_name
+    }
+
+    const response_http = await fetch(
+        ENVIRONMENT.URL_API + `/api/workspace/${workspace_id}/channels`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
+            },
+            body: JSON.stringify(body)
+        }
+    )
+
+    const response = await response_http.json()
+    if (!response.ok) {
+        throw new Error("Error at create channel");
+    }
+    return response
+}
+
+export { getChannelList, createChannel, getChannelById }

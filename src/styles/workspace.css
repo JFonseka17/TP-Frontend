@@ -10,11 +10,14 @@
 
 .channel-search-container {
     display: flex;
+    height: 40px;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
     background: linear-gradient(to right, var(--purple-700), var(--purple-800));
+}
+
+.channel-search {
+    width: 45%;
 }
 
 .channel-main-container {
@@ -28,7 +31,7 @@
     flex-direction: column;
     min-width: 0;
     background: var(--color-surface);
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .channel-panel>header {

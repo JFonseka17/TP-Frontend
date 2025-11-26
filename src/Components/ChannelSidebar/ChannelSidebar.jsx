@@ -3,9 +3,10 @@ import ChannelList from '../ChannelList/ChannelList'
 import useFetch from '../../hooks/useFetch'
 import { useParams } from 'react-router'
 import { getChannelList } from '../../services/channelService'
-import '../../styles/global.css'
 import { AuthContext } from '../../Context/AuthContext'
 import InviteMemberModal from '../InviteMemberModal/InviteMemberModal'
+import '../../styles/global.css'
+import '../../styles/channel.css'
 
 const ChannelSidebar = () => {
     const {
@@ -100,8 +101,8 @@ const ChannelSidebar = () => {
                     <div className="team-name">Trabajo Final</div>
                 </div>
 
-                <header>
-                    <h3>Canales</h3>
+                <header className='header-content'>
+                    <h3 className='header-title'>Canales</h3>
                 </header>
                 {
                     loading && <div className="channel-list-empty">Cargando...</div>
