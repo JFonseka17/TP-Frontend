@@ -202,4 +202,8 @@
     .register-heading h1 {
         font-size: clamp(20px, 6vw, 28px);
     }
+
+    .register-form {
+        width: 300px;
+    }
 }

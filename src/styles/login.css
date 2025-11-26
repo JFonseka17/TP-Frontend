@@ -31,7 +31,6 @@
 
 .login-top>div {
     flex: 1;
-    
     display: flex;
 }
 
@@ -50,13 +49,6 @@
 .login-top>div:last-child {
     justify-content: flex-end;
     
-}
-
-.top-link {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary);
-    text-decoration: none;
 }
 
 .top-right {

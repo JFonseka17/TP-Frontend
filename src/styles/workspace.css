@@ -33,7 +33,6 @@
     min-width: 0;
     width: 100%;
     min-height: 0;
-    height: 100%;
     background: var(--color-surface);
     overflow: hidden;
 }
@@ -57,15 +56,14 @@
     border-radius: 6px;
 }
 
-@media (max-width:800px) {
-    .channel-sidebar {
-        display: none;
-        position: absolute;
-        z-index: 40;
+@media (max-width:880px) {
+    .workspace-container {
+        display: flex;
+        flex-direction: column-reverse
     }
 
-    .workspace-container {
+    .channel-main-container {
         flex-direction: column;
-        height: auto;
+        width: 100%;
     }
 }

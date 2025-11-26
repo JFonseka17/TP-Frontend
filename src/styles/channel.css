@@ -255,8 +255,8 @@
     flex-direction: column;
     flex: 1 1 auto;
     width: 100%;
-    min-height: 0;
-    height: 100%;  
+    min-height: 0; 
+
 }
 
 .channel-header {
@@ -283,7 +283,7 @@
     flex: 1 1 auto;
     width: 100%;
     min-height: 0;
-    overflow: auto;
+    overflow-y: hidden
 }
 
 .channel-logo-content {
@@ -404,11 +404,66 @@
     cursor: pointer;
 }
 
-
-@media (max-width: 480px) {
+@media (max-width: 880px) {
     .channel-sidebar {
-        width: clamp(200px, 30vw, 260px);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
         padding: var(--space-2);
+        flex: 1 1 auto;
+    }
+
+    .channel-sidebar-left {
+        display: flex;
+        flex-direction: row;
+        max-width: 100%;
+    }
+
+    .channel-sidebar-icons {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: var(--space-1);
+        justify-content: flex-start;
+    }
+
+    .channel-sidebar-footer {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        width: auto;
+    }
+
+    .channel-sidebar-footer svg {
+        height: 24px;
+        width: 24px;
+    }
+
+    .team-header {
+        min-height: auto;
+    }
+
+    .header-content h3 {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    .channel-list {
+        padding: 2px 2px;
+    }
+
+    .channel-item {
+        margin: 1px 4px;
+    }
+
+    .channel-link {
+        padding: 4px 10px;
+    }
+
+    .sidebar-footer {
+        margin-top: var(--space-1);
+        gap: var(--space-1);
+        padding-bottom: var(--space-2);
     }
 
     .channel-header {
@@ -416,7 +471,15 @@
     }
 
     .channel-scroll {
-        padding: 12px;
+        padding: 6px 12px;
+    }
+
+    .messages-list {
+        margin-top: 4px;
+    }
+
+    .message-row {
+        padding: 6px 6px;
     }
 
     .welcome-cards {
@@ -425,8 +488,8 @@
     }
 }
 
-@media (min-width: 1800px) {
-    .channel-scroll {
-        padding: 48px 80px;
+@media (max-width: 500px) {
+    .channel-sidebar-icons {
+        gap: 2px;
     }
 }
