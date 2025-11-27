@@ -31,7 +31,7 @@ export async function createMessage(workspace_id, channel_id, content) {
             "Authorization": `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({content})
+        body: JSON.stringify({ content })
     });
 
     const response = await response_http.json();
@@ -39,4 +39,24 @@ export async function createMessage(workspace_id, channel_id, content) {
         throw new Error(response.message || "Error al crear el mensaje");
     }
     return response;
+}
+
+export async function deleteMessage(workspaceId, channelId, messageId) {
+    const url = `${ENVIRONMENT.URL_API}/api/workspace/${workspaceId}/channels/${channelId}/messages/${messageId}`
+
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`,
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if (res.status === 204) return true
+
+    const body = await res.text().catch(() => '')
+    const err = new Error(`Delete failed: ${res.status} ${res.statusText} ${body}`)
+    err.status = res.status
+    err.body = body
+    throw err
 }
