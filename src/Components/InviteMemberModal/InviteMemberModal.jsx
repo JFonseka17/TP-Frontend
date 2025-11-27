@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-import '../../styles/modal.css' // Asegurate de importar el CSS (o incluirlo en channels.css)
+import '../../styles/modal.css'
 import { inviteMember } from '../../services/memberService'
 
 const InviteMemberModal = ({ workspaceId, onClose, onInvited }) => {
     const [email, setEmail] = useState('')
-    const [isAdmin, setIsAdmin] = useState(false) // casilla: Admin / User
+    const [isAdmin, setIsAdmin] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -19,7 +19,7 @@ const InviteMemberModal = ({ workspaceId, onClose, onInvited }) => {
         }
         setLoading(true)
         try {
-            const role = isAdmin ? 'admin' : 'user' // mapeo sencillo
+            const role = isAdmin ? 'admin' : 'user'
             await inviteMember(workspaceId, trimmed, role)
             setLoading(false)
             onInvited && onInvited()

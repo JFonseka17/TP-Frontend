@@ -1,22 +1,3 @@
-/* import React from 'react'
-import { Link } from 'react-router'
-import '../../styles/global.css'
-
-const ChannelItem = ({ channel, workspace_id, active = false }) => {
-    const to = `/workspace/${workspace_id}/${channel._id}`
-    return (
-        <li className="channel-item" aria-current={active ? 'page' : undefined}>
-            <Link to={to} className={`channel-link${active ? ' active' : ''}`}>
-                <span className="channel-hash">#</span>
-                <span className="channel-name">{channel.name}</span>
-            </Link>
-            <span>ACA VA EL BOTON</span>
-        </li>
-    )
-}
-
-export default ChannelItem */
-
 import React from 'react'
 import { Link } from 'react-router'
 import { deleteChannel } from '../../services/channelService'
@@ -26,22 +7,17 @@ const ChannelItem = ({ channel, workspace_id, active = false, setChannels, onDel
     const to = `/workspace/${workspace_id}/${channel._id}`
 
     const handleDelete = async (e) => {
-        // evitar que el click en el botón dispare la navegación del Link
         e.stopPropagation()
         e.preventDefault()
         try {
             await deleteChannel(workspace_id, channel._id)
-            // actualizar lista si el padre pasó setChannels
             if (typeof setChannels === 'function') {
                 setChannels(prev => prev.filter(c => String(c._id) !== String(channel._id)))
             }
-            // callback opcional
             if (typeof onDeleted === 'function') onDeleted(channel._id)
-            // si el padre quiere deseleccionar al borrar
             if (typeof onSelect === 'function') onSelect(null)
         } catch (err) {
             console.error('No se pudo eliminar el canal:', err)
-            // opcional: mostrar alerta/notification
         }
     }
 
@@ -51,8 +27,6 @@ const ChannelItem = ({ channel, workspace_id, active = false, setChannels, onDel
                 <span className="channel-hash">#</span>
                 <span className="channel-name">{channel.name}</span>
             </Link>
-
-            {/* Botón de borrar junto al nombre */}
             <button
                 onClick={handleDelete}
                 aria-label={`Eliminar canal ${channel.name}`}

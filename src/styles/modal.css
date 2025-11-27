@@ -1,4 +1,3 @@
-/* Modal básico + estilos para el selector de rol (checkbox) */
 
 .modal-backdrop {
     position: fixed;
@@ -71,7 +70,6 @@
     width: 18px;
     height: 18px;
     accent-color: var(--purple-700);
-    /* moderno */
 }
 
 .role-label-text {
@@ -96,7 +94,6 @@
     font-size: 0.95rem;
 }
 
-/* botones */
 .button {
     padding: 8px 12px;
     border-radius: 8px;

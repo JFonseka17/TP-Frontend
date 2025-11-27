@@ -20,11 +20,9 @@ const RegisterScreen = () => {
 
     const { response, error, loading, sendRequest, resetResponse } = useFetch();
 
-    // ojo: añadí showPassword para el ojito y resetResponse para limpiar errores antes de enviar
     const [showPassword, setShowPassword] = useState(false);
 
     function onRegister(form_state_sent) {
-        // protección mínima: evitar doble envío si ya loading
         if (loading) return;
         resetResponse();
         sendRequest(

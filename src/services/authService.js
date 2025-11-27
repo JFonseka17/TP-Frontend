@@ -8,21 +8,17 @@ export async function register(username, email, password) {
             password
         }
 
-        //  Fetch es una funcion nativa de JS para hacer consultas HTTP
         const response_http = await fetch(
             ENVIRONMENT.URL_API + '/api/auth/register',
             {
                 method: 'POST',
                 headers: {
-                    //  Indicamos que el cuerpo de la peticion es json
                     'Content-Type': 'application/json'
                 },
-                //  Transformo el objeto de JS a JSON (texto)
                 body: JSON.stringify(body)
             }
         )
 
-        // Transformamos el body de respuesta de JSON a objeto de JS
         const response = await response_http.json()
 
         return response
@@ -43,10 +39,8 @@ export async function login(email, password) {
             {
                 method: 'POST',
                 headers: {
-                    //Indica a mi servidor que voy a enviar un JSON por body
                     "Content-Type": 'application/json'
                 },
-                //Transformo el objeto de JS a JSON (texto)
                 body: JSON.stringify(body)
             }
         )

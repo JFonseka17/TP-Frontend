@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
-import { getWorkspaces, createWorkspace } from "../../services/workspaceService.js";
+import { getWorkspaces, createWorkspace, deleteWorkspace } from "../../services/workspaceService.js";
 import { Link } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import '../../styles/home.css';
@@ -15,47 +15,26 @@ const HomeScreen = () => {
 
     useEffect(() => {
         fetchWorkspaces(() => getWorkspaces());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        // Normalizar distintas formas de respuesta posibles
         const list = response?.data?.workspaces || response?.workspaces || response || [];
         const normalized = Array.isArray(list) ? list : [];
-        // filtrar items inválidos (evitar nulls)
         const valid = normalized.filter(ws => Boolean(ws.workspace_id || ws._id || ws.member_id || ws.workspace_name || ws.name));
         setWorkspaces(valid);
     }, [response]);
 
-    // Nuevo: redirigir cuando se reciba createResponse con id del workspace
     useEffect(() => {
         if (!createResponse) return;
-
-        // Intentamos detectar id en varios posibles shapes de la respuesta
         const createdId = createResponse?.data?.workspace_created?._id;
-
         if (createdId) {
-            // Redirección sin depender de react-router-dom
             window.location.assign(`/workspace/${createdId}`);
             return;
         }
-
-        // Si no hay id, simplemente re-fetch (comportamiento seguro)
         fetchWorkspaces(() => getWorkspaces());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [createResponse]);
 
-    useEffect(() => {
-        if (createResponse) {
-            // Si hay createResponse pero la useEffect anterior no redirigió (no venía id),
-            // ya se disparó el re-fetch allí. Aquí no necesitamos más lógica.
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [createResponse]);
-
-    // Resolver owner/email usando la nueva propiedad que proviene del backend
     function resolveOwnerEmailFromWorkspace(ws) {
-        // Usar exactamente el campo que ahora envía el backend
         return ws.member_email || user?.email || 'Sin correo';
     }
 
@@ -66,7 +45,6 @@ const HomeScreen = () => {
         return (parts[0][0] + parts[1][0]).toUpperCase();
     }
 
-    // Agrupamos por ownerEmail ya resuelto
     const grouped = workspaces.reduce((acc, ws) => {
         const ownerEmail = resolveOwnerEmailFromWorkspace(ws);
         if (!acc[ownerEmail]) acc[ownerEmail] = [];
@@ -81,6 +59,20 @@ const HomeScreen = () => {
         sendCreate(() => createWorkspace(name.trim(), (url_image || "").trim()));
     }
 
+    async function handleDeleteWorkspace(workspaceId) {
+        if (!workspaceId) return;
+        try {
+            await deleteWorkspace(workspaceId);
+            setWorkspaces(prev => (Array.isArray(prev) ? prev.filter(ws => {
+                const wsId = ws.workspace_id || ws._id || ws.id || null;
+                return String(wsId) !== String(workspaceId);
+            }) : prev));
+        } catch (err) {
+            console.error('No se pudo eliminar workspace:', err);
+            window.alert('No se pudo eliminar el workspace: ' + (err?.message || 'revisá la consola'));
+        }
+    }
+
     return (
         <div className="home-page">
             <header className="home-hero">
@@ -92,8 +84,7 @@ const HomeScreen = () => {
                             title="Slack"
                         />
                     </div>
-                    <div className="hero-confirm">Se confirmó como <strong>{user?.email || 'usuario'}</strong>
-                    </div>
+                    <div className="hero-confirm">Se confirmó como <strong>{user?.email || 'usuario'}</strong></div>
                 </div>
                 <div className="hero-inner">
                     <div className="hero-left">
@@ -115,21 +106,20 @@ const HomeScreen = () => {
                                 </span>
                                 <span className="hero-check-info">
                                     Quiero recibir comunicaciones de marketing sobre Salesforce, inclusive sobre Slack. Puedo cancelar mi suscripción en cualquier momento.
-                                    </span>
+                                </span>
                             </label>
                         </div>
                         <div>
-                            Al continuar, aceptas el 
+                            Al continuar, aceptas el
                             <a> Acuerdo de servicios principal</a>
-                            , los 
-                            <a>Términos de servicio del usuario </a> 
-                            y los 
-                            <a>Términos complementarios de Slack</a>
-                            . Hay divulgaciones adicionales en nuestras 
-                            <a> Política de privacidad </a> 
-                            y 
-                            <a> Política de cookies</a>
-                            .
+                            , los
+                            <a> Términos de servicio del usuario </a>
+                            y los
+                            <a> Términos complementarios de Slack</a>
+                            . Hay divulgaciones adicionales en nuestras
+                            <a> Política de privacidad </a>
+                            y
+                            <a> Política de cookies</a>.
                         </div>
                     </div>
                     <div className="hero-illustration" aria-hidden>
@@ -188,10 +178,30 @@ const HomeScreen = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="workspace-action">
+                                                        <div className="workspace-action" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                                             <Link to={'/workspace/' + (wsId || '')} className="open-link" aria-label={`Abrir ${workspace.workspace_name || workspace.name}`}>
                                                                 ➜
                                                             </Link>
+                                                            {wsId && (
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        e.stopPropagation();
+                                                                        handleDeleteWorkspace(wsId);
+                                                                    }}
+                                                                    aria-label={`Eliminar workspace ${workspace.workspace_name || workspace.name}`}
+                                                                    title="Eliminar workspace"
+                                                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: 6 }}
+                                                                >
+                                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                                                                        <path d="M3 6h18" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                        <path d="M10 11v6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                        <path d="M14 11v6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                    </svg>
+                                                                </button>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 );

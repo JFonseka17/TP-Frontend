@@ -1,15 +1,6 @@
 import ENVIRONMENT from "../config/environment.js";
 import { AUTH_TOKEN_KEY } from "../Context/AuthContext.jsx";
 
-/**
- * inviteMember - llama al endpoint de backend que crea una invitación
- * Body: { email, role }
- * Endpoint esperado (según backend leído): POST /api/workspace/:workspaceId/invite
- *
- * Uso:
- * import { inviteMember } from '../services/memberService'
- * await inviteMember(workspaceId, 'user@example.com', 'admin')
- */
 export async function inviteMember(workspaceId, email, role = 'user') {
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
 
@@ -23,11 +14,9 @@ export async function inviteMember(workspaceId, email, role = 'user') {
     });
 
     if (!res.ok) {
-        // Intenta leer el body para obtener un mensaje útil
         let text = null;
         try { text = await res.text(); } catch (e) { /* ignore */ }
 
-        // Si el body es JSON con message, úsalo
         if (text) {
             try {
                 const json = JSON.parse(text);

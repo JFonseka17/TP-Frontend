@@ -43,14 +43,13 @@ const AuthContextProvider = ({ children }) => {
 
     function onLogin(auth_token) {
         const prevToken = localStorage.getItem(AUTH_TOKEN_KEY);
-        // Si el token es igual y ya estamos logueados, no hacemos nada
         if (prevToken === auth_token && isLogged) return;
 
         localStorage.setItem(AUTH_TOKEN_KEY, auth_token);
         setIsLogged(true);
         const user_session = decodeToken(auth_token);
         setUser(user_session);
-        navigate('/home'); // si querés que la navegación la haga el contexto, la dejamos aquí
+        navigate('/home');
     }
     return <AuthContext.Provider
         value={{

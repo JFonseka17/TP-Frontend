@@ -1,15 +1,5 @@
 @import './global.css';
 
-/* .channels-page {
-    display: flex;
-    height: 100vh;
-    gap: var(--space-3);
-    align-items: stretch;
-    background: linear-gradient(180deg, var(--color-bg), var(--color-surface));
-    min-width: 0;
-    padding: 0;
-} */
-
 .channel-search input {
     padding: 5px 5px 5px 12px;
     background: linear-gradient(180deg, #552A57, #512253);
